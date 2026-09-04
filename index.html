@@ -4766,7 +4766,9 @@ function showCard(){
   document.getElementById("bEx").innerHTML = w.gen
     ? '<span style="color:var(--sub)">例文は準備中です。<br>意味と発音でおぼえよう 🔊</span>'
     : "<b>"+w.ex.z+"</b><br>"+w.ex.p+"<br>"+w.ex.j;
-  document.getElementById("count").textContent=(qi+1)+" / "+queue.length+"　・　「おぼえた！」は次に後ろへ";
+  const doneN=queue.filter(x=>P.done[x.id]).length;
+  document.getElementById("count").innerHTML=(qi+1)+" / "+queue.length+" 枚目　・　おぼえた <b>"+doneN+"</b>／のこり <b>"+(queue.length-doneN)+"</b>"
+    +'<br><span style="font-size:.92em">「おぼえた！」の語はうしろに回り、復習でまた出てきます</span>';
 }
 function flip(){ flipped=!flipped; document.getElementById("card").classList.toggle("flip",flipped); }
 document.getElementById("speakBtn").addEventListener("click",function(e){
@@ -4780,7 +4782,7 @@ function mark(ok){
   const w=queue[qi];
   P.attempts++; bumpMission("card");
   if(ok){P.correct++; P.done[w.id]=true; clearWrong(w.id);}
-  else{ addWrong(w.id); }
+  else{ addWrong(w.id); delete P.done[w.id]; }   /* 間違えたら「おぼえた」を取り消す */
   touchDay(); save();
   toast(ok?"やったね！「"+w.zi+"」をおぼえた✨":"だいじょうぶ、あとでもう一回💪");
   qi=(qi+1)%queue.length;

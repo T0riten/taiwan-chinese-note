@@ -1,5 +1,5 @@
-/* たいわん中国語ノート - オフライン用キャッシュ  版: bb4e58c5 */
-const CACHE = "twzh-bb4e58c5";
+/* たいわん中国語ノート - オフライン用キャッシュ  版: 28aee46a */
+const CACHE = "twzh-28aee46a";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
